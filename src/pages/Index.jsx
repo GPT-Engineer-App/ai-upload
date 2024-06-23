@@ -49,6 +49,7 @@ const Index = () => {
 
     const configuration = {
       apiKey: apiKey,
+      dangerouslyAllowBrowser: true,
     };
     const openai = new OpenAIApi(configuration);
 
