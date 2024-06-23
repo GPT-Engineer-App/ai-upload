@@ -47,11 +47,7 @@ const Index = () => {
       return;
     }
 
-    const configuration = {
-      apiKey: apiKey,
-      dangerouslyAllowBrowser: true,
-    };
-    const openai = new OpenAIApi(configuration);
+    const openai = new OpenAIApi(apiKey);
 
     const formData = new FormData();
     formData.append("file", file);
