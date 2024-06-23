@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Container, VStack, Input, Button, Text, useToast } from "@chakra-ui/react";
 import { FaUpload } from "react-icons/fa";
 import { OpenAIApi } from "openai";
-import { Configuration } from "openai/dist/configuration";
 
 const Index = () => {
   const [apiKey, setApiKey] = useState(localStorage.getItem("openaiApiKey") || "");
@@ -48,10 +47,9 @@ const Index = () => {
       return;
     }
 
-    const configuration = new Configuration({
+    const openai = new OpenAIApi({
       apiKey: apiKey,
     });
-    const openai = new OpenAIApi(configuration);
 
     const formData = new FormData();
     formData.append("file", file);
