@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, VStack, Input, Button, Text, useToast } from "@chakra-ui/react";
 import { FaUpload } from "react-icons/fa";
-import { OpenAIApi } from "openai";
+import { OpenAIApi } from "openai/api";
 
 const Index = () => {
   const [apiKey, setApiKey] = useState(localStorage.getItem("openaiApiKey") || "");
