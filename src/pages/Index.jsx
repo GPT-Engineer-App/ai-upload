@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, VStack, Input, Button, Text, useToast } from "@chakra-ui/react";
 import { FaUpload } from "react-icons/fa";
-import OpenAIApi from "openai";
+
 
 const Index = () => {
   const [apiKey, setApiKey] = useState(localStorage.getItem("openaiApiKey") || "");
@@ -47,21 +47,29 @@ const Index = () => {
       return;
     }
 
-    const configuration = {
-      apiKey: apiKey,
-      dangerouslyAllowBrowser: true,
-    };
-    const openai = new OpenAIApi(configuration);
+    
 
     const formData = new FormData();
     formData.append("file", file);
     formData.append("model", "whisper-1");
 
     try {
-      const response = await openai.createTranscription(formData);
+      const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
       toast({
         title: "Transcription Success",
-        description: response.data.text,
+        description: data.text,
         status: "success",
         duration: 5000,
         isClosable: true,
